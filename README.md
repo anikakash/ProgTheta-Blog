@@ -94,6 +94,6 @@ DELETE http://localhost:3000/api/products/:id
 
 Any advise for common problems or issues.
 
-```
+
 Remember to replace `<repository-url>` and `<repository-name>` with your actual repository URL and name. Also, you may want to add more specific instructions or descriptions based on your project's functionality and structure. Good luck with your project!
-```
+
