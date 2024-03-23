@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/product.model.js");
+const { required } = require("joi");
 const {
   getProducts,
   getProduct,
@@ -9,10 +9,13 @@ const {
   deleteProduct,
 } = require("../controllers/product.controller.js");
 
-router.post("/", createProduct);
+const { ensureAuthenticated } = require("../middleware/authMiddleware.js");
+
 router.get("/", getProducts);
 router.get("/:id", getProduct);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+//jwt
+router.post("/", ensureAuthenticated, createProduct);
+router.put("/:id", ensureAuthenticated, updateProduct);
+router.delete("/:id", ensureAuthenticated, deleteProduct);
 
 module.exports = router;
