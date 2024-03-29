@@ -27,5 +27,5 @@ mongoose
     });
   })
   .catch(() => {
-    console.log("Connection faild!");
+    console.log("DB Connection faild!");
   });

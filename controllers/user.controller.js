@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // validate req.body -> Done
-// create MongoDB userModel
+// create MongoDB userModel ->done
 // do password encrytion
 // save data to MongoDB
 // retrun response to the client
