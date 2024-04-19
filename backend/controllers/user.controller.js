@@ -35,6 +35,7 @@ const userLogin = async (req, res) => {
     }
     // check is correct password or not
     const isPassEqual = await bcrypt.compare(req.body.password, user.password);
+
     if (!isPassEqual) {
       return res.status(401).json({ message: "Auth faild, Invalid mail/pass" });
     }
