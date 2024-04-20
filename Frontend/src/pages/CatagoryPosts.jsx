@@ -1,9 +1,7 @@
 import React from 'react'
 
-function CatagoryPosts() {
+export const CatagoryPosts = () => {
   return (
     <div>CatagoryPosts</div>
   )
 }
-
-export default CatagoryPosts
