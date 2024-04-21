@@ -6,8 +6,8 @@ import Logo from '../assets/logo.png'
 export const Header = () => {
   return (
     <nav>
-      <div className="container nav_container">
-        <Link to="/" className='nav_logo'>
+      <div className="container nav__container">
+        <Link to="/" className='nav__logo'>
           <img src={Logo} alt="Prog Theta"/>
         </Link>
         <ul className="nav__menu">
