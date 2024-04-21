@@ -1,9 +1,7 @@
 import React from 'react'
 
-function Authors() {
+export const Authors = () => {
   return (
     <div>Authors</div>
   )
 }
-
-export default Authors

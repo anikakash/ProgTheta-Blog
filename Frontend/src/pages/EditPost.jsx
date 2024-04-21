@@ -1,9 +1,7 @@
 import React from 'react'
 
-function EditPost() {
+export const EditPost = () => {
   return (
     <div>EditPost</div>
   )
 }
-
-export default EditPost
