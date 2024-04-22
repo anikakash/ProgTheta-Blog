@@ -66,7 +66,7 @@ h4{
 }
 
 h5{
-    font-size: 1.5rem;
+    font-size: 0.9rem;
 }
 
 body{
@@ -216,4 +216,67 @@ footer{
     width: 40rem;
     height: 30rem;
     margin-bottom: 3rem;
+}
+
+
+/*============================= Home  =============================*/
+
+/*============================= Posts  =============================*/
+.posts__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; /* Adjust the gap between cards */
+}
+
+.post {
+    background: var(--color-white);
+    padding: 0.75rem;
+    border-radius: var(--radius-3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a box shadow for a card effect */
+    transition: var(--transition);
+    display: flex; /* Ensure contents are aligned */
+    flex-direction: column; /* Stack contents vertically */
+}
+
+.post img {
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: var(--radius-3);
+    object-fit: cover;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.post__thumbnail{
+    overflow: hidden;
+}
+
+.post__content{
+    margin: 1rem;
+}
+
+.post__content h3{
+    margin: 0.5rem 0 0.3rem;
+}
+
+.post__footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1rem;
+}
+
+.post__author{
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.post__author-avatar{
+    width: 2.5rem;
+    aspect-ratio: 1/1;
+    border-radius: var(--radius-4);
 }
