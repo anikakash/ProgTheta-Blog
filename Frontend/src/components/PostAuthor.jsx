@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Avatar from '../assets/avatar1.jpg'
+import Avatar from '../assets/avatar2.jpg'
 const PostAuthor = () => {
   return (
     <Link to={`/posts/users/sdfsdf`} className="post__author">
@@ -9,7 +9,7 @@ const PostAuthor = () => {
         </div>
         
         <div className="post__author-details">
-            <h5>By: JHON DUO</h5>
+            <h5>By: Jhon Duo</h5>
             <small>Just Now</small>
         </div>
     </Link>

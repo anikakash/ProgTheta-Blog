@@ -271,12 +271,14 @@ footer{
 
 .post__author{
     display: flex;
-    gap: 0.5rem;
+    gap: 1.5rem;
     align-items: flex-start;
 }
 
-.post__author-avatar{
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    border-radius: var(--radius-4);
+.post__author-avatar {
+    width: 3.5rem;
+    height: 3.5rem; /* Set a fixed height */
+    display: flex;
+    border-radius: 50%; /* Make it a circle */
+    overflow: hidden;
 }
