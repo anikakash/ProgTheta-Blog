@@ -20,7 +20,7 @@ export const Login = () => {
         <form action="#" className="form login__form">
             <p className="form__error-message"> This is an Error message.</p>
 
-            <input onChange={(e)=>{InputOnChange("email", e.target.value)}} value={userData.email} type="text" placeholder={"Email"}/>
+            <input onChange={(e)=>{InputOnChange("email", e.target.value)}} value={userData.email} type="text" placeholder={"Email"} autoFocus/>
             <input onChange={(e)=>{InputOnChange("password", e.target.value)}} value={userData.password} type="password" placeholder={"password"}/>
   
             <button  type='submit' className="btn primary">Login</button>
