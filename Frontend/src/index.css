@@ -276,9 +276,46 @@ footer{
 }
 
 .post__author-avatar {
-    width: 3.5rem;
-    height: 3.5rem; /* Set a fixed height */
+    width: 2.5rem;
+    height: 2.5rem; /* Set a fixed height */
     display: flex;
     border-radius: 50%; /* Make it a circle */
     overflow: hidden;
+}
+
+
+
+/*============================= Post Detailes  =============================*/
+
+.post-detail{
+    width: var(--form-width);
+    background: var(--color-white);
+    margin-inline: auto;
+    padding: 2rem 0;
+    border-radius: var(--radius-2);
+}
+
+
+
+.post-detail__thumbnail img {
+    width: 100%; /* Ensure the image fills its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: var(--radius-2);
+    object-fit: cover;
+    margin: 1rem 0;
+}
+
+.post-detail__header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+.post-detail_buttons{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.post-detail{
+    margin-bottom: 0.7rem;
 }
