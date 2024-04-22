@@ -366,3 +366,31 @@ input, select, textarea{
 .register small a, .login small a{
     color: var(--color-primary);
 }
+
+/*============================= Authors Pages =============================*/
+
+.authors__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+.author{
+    background: var(--color-white);
+    padding: 1rem;
+    border-radius: var(--radius-3);
+    display: flex;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+.author:hover{
+    box-shadow: 0 1rem 1.5rem rgba(0,0,0,0.7);
+}
+
+.author__avatar{
+    width: 2.5rem;
+    height: 2.5rem; /* Set a fixed height */
+    display: flex;
+    border-radius: 50%; /* Make it a circle */
+    overflow: hidden;
+}
