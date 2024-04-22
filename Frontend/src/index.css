@@ -222,7 +222,7 @@ footer{
 /*============================= Home  =============================*/
 
 /*============================= Posts  =============================*/
-.posts__container {
+.posts__container, .author-posts__container, .category-posts__container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem; /* Adjust the gap between cards */
