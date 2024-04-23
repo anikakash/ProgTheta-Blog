@@ -11,7 +11,7 @@ export const Header = () => {
           <img src={Logo} alt="Prog Theta"/>
         </Link>
         <ul className="nav__menu">
-          <li><Link to='/profile/:id'>Anik Akash</Link></li>
+          <li><Link to='/profile/sdfsdf'>Anik Akash</Link></li>
           <li><Link to='/create-post'>Create Post</Link></li>
           <li><Link to='/authors'>Authors</Link></li>
           <li><Link to='/logout'>Logut</Link></li>

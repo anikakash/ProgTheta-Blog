@@ -23,6 +23,7 @@ export const Register = () => {
             <p className="form__error-message"> This is an Error message.</p>
 
             <input onChange={(e)=>{InputOnChange("name", e.target.value)}} value={userData.name} type="text" placeholder={"Full Name"}/>
+            
             <input onChange={(e)=>{InputOnChange("email", e.target.value)}} value={userData.email} type="text" placeholder={"Email"}/>
             <input onChange={(e)=>{InputOnChange("password", e.target.value)}} value={userData.password} type="password" placeholder={"password"}/>
             <input onChange={(e)=>{InputOnChange("confirmPassword", e.target.value)}} value={userData.confirmPassword} type="password" placeholder={"confirmPassword"}/>
