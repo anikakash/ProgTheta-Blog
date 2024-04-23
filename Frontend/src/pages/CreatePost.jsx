@@ -5,32 +5,32 @@ import 'react-quill/dist/quill.snow.css';
 export const CreatePost = () => {
   const [blog, setBlog] = useState({
     title: '',
-    catagory:'',
+    category:'',
     thumbnail: '',
     description: ''
   });
-  const InputOnChange = (property, value)=>{
+  const inputOnChange  = (property, value)=>{
     setBlog(preObj=>({
         ...preObj, 
         [property] : value
     }))
   }
-  const modules = {
-    toolbar : [
-      [{'header' : [1, 2,3, false]}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent' : '-1'}, {'indent' : '+1'}],
-      ['link', 'image'],
-      ['clean']
-    ],
-  }
+  // const modules = {
+  //   toolbar : [
+  //     [{'header' : [1, 2,3, false]}],
+  //     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+  //     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent' : '-1'}, {'indent' : '+1'}],
+  //     ['link', 'image'],
+  //     ['clean']
+  //   ],
+  // }
 
-  const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image'
-  ]
+  // const formats = [
+  //   'header',
+  //   'bold', 'italic', 'underline', 'strike', 'blockquote',
+  //   'list', 'bullet', 'indent',
+  //   'link', 'image'
+  // ]
 
     const POST_CATEGORIES = ["Programming", "System-Designe", "LeetCode", "Problem-Solving", "Operating-System", "DataBase", "Data-Structure", "Uncatergorized"]
 
@@ -42,15 +42,36 @@ export const CreatePost = () => {
             This is an error message
           </p>
           <form className="form create-post__from">
-              <input onChange={(e)=>{InputOnChange("title", e.target.value)}} value={blog.title} type="text" placeholder = 'Title' />
+              <input onChange={(e)=>{inputOnChange ("title", e.target.value)}} value={blog.title} type="text" placeholder = 'Title' />
 
-              <select onChange={(e)=>{InputOnChange("catagory", e.target.value)}} value={blog.catagory}>
+              <select onChange={(e)=>{inputOnChange ("category", e.target.value)}} value={blog.category}>
                         {
-                          POST_CATEGORIES.map((cat => <option id={cat}>{cat}</option>))
+                          POST_CATEGORIES.map((cat => <option key={cat}>{cat}</option>))
                         }
                 </select>
-                <ReactQuill modules={modules} formats={formats} onChange={(e) => {InputOnChange("description", e.target.value)}} value={blog.description} />
-                <input onChange={(e) => {InputOnChange("thumbnail", e.target.value)}} value={blog.thumbnail} accept='jpg, png, jpeg' type="file" />
+
+                 <ReactQuill
+            modules={{
+              toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                ['link', 'image'],
+                ['clean']
+              ]
+            }}
+            formats={[
+              'header',
+              'bold', 'italic', 'underline', 'strike', 'blockquote',
+              'list', 'bullet', 'indent',
+              'link', 'image'
+            ]}
+            onChange={(value) => inputOnChange("description", value)}
+            value={blog.description}
+          />
+
+
+                <input onChange={(e) => {inputOnChange ("thumbnail", e.target.value)}} value={blog.thumbnail} accept="image/*" type="file" />
 
                 <button type="submit" className="btn primary">Create</button>
           </form>
