@@ -1,6 +1,7 @@
 const UserModel = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const HttpError = require("../models/error.model.js")
 
 // validate req.body -> Done
 // create MongoDB userModel ->done
@@ -11,15 +12,38 @@ const jwt = require("jsonwebtoken");
 // ================ REGISTER A NEW USER ====================
 // POST : /api/users/register
 
-const userRegistration = async (req, res) => {
-  const userModel = new UserModel(req.body);
-  userModel.password = await bcrypt.hash(req.body.password, 10);
+const userRegistration = async (req, res, next) => {
+  // const userModel = new UserModel(req.body);
+  // userModel.password = await bcrypt.hash(req.body.password, 10);
   try {
-      res.status(200).json({ message: "Registration Successful"});
+      const {name, email, password, password2} = req.body;
+      if(!name || !email || !password){
+        return next(new HttpError("Fill in all fields.", 422));
+      }
+
+      const newEmail = email.toLowerCase();
+      const emailExists = await UserModel.findOne({email: newEmail});
+
+      if(emailExists){
+        return next(new HttpError("Error already exists.", 422));
+      }
+
+      if((password.trim()).length < 6){
+        return next(new HttpError("Password should be at least 6 characters.", 422));
+      }
+
+      if(password != password2){
+        return next(new HttpError("passwords do not match.", 422));
+      }
+      
+      const salt = await bcrypt.genSalt(10);
+      const hashedPass = await bcrypt.hash(password, salt);
+      const newUser = await UserModel.create({name, email: newEmail, password: hashedPass})
+
+      res.status(201).json(newUser);
+
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Registration Successful", Message: error.toString() });
+    return next (new HttpError("User registration failed.", 422))
   }
 };
 
@@ -103,7 +127,7 @@ const changeAvatar = (req, res, next) =>{
 // POST : /api/users/:id/change-avatar
 // PROTECTED
 const updateUser = (req, res, next) =>{
-  res.json("Change avatar");
+  res.json("Update User info");
 }
 
 
