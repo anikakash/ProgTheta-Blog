@@ -366,3 +366,262 @@ input, select, textarea{
 .register small a, .login small a{
     color: var(--color-primary);
 }
+
+/* Cusstom style fro react quill */
+.ql-editor{
+    overflow: scroll;
+    background: var(--color-white);
+    height: 10rem !important;
+}
+
+/*============================= Authors Pages =============================*/
+
+.authors__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+.author{
+    background: var(--color-white);
+    padding: 1rem;
+    border-radius: var(--radius-3);
+    display: flex;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+.author:hover{
+    box-shadow: 0 1rem 1.5rem rgba(0,0,0,0.7);
+}
+
+.author__avatar{
+    width: 2.5rem;
+    height: 2.5rem; /* Set a fixed height */
+    display: flex;
+    border-radius: 50%; /* Make it a circle */
+    overflow: hidden;
+}
+
+
+/* ===================== user Prfile ================== */
+/* .profile{
+    margin-top: 10rem;
+} */
+.profile__container{
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.avatar__wrapper{
+    width: 15rem;
+    position: relative;
+    margin-inline: auto;
+    margin-top: 1rem;
+}
+
+.profile__avatar img{
+    height: 100%;
+    border-radius: 50%;
+    border: 12px solid white;
+    overflow: hidden;
+}
+
+.avatar__form{
+    height: 1rem;
+}
+
+.avatar__form input{
+    visibility: hidden;
+}
+
+.avatar__form label, .profile__avatar-btn{
+    background: var(--color-gray-900);
+    color: var(--color-white);
+    font-size: 1.2rem;
+    position: absolute;
+    right: 3rem;
+    bottom: 2rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+}
+
+.profile__avatar-btn{
+    cursor: pointer;
+    padding: 0;
+ 
+    background: var(--color-primary);
+}
+
+.profile__details h1{
+    margin-top: 1.5rem;
+}
+
+.form.profile__from{
+    margin-top: 3rem;
+    margin-inline: auto;
+    width: var(--form-width);
+}
+
+
+/* ===================== Dashboard ================== */
+
+.dashboard__container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem
+}
+
+.dashboard__post{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--color-white);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-3);
+}
+
+.dashboard__post-info{
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    align-items: center;
+}
+
+.dashboard__post-thumbnail{
+    width: 4rem;
+    border-radius: var(--radius-1);
+    overflow: hidden;
+}
+.dashboard__post-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.dashboard__post-actions{
+    display: flex;
+    gap: 1rem;
+}
+
+
+/* ===================== Media Queries(small devics) ================== */
+
+@media screen and (max-width : 800px) {
+    h1{
+        font-size: 1.5rem;
+    }
+    h2{
+        font-size: 1.4rem;
+    }
+    h3{
+        font-size: 1.2rem;
+    }
+
+    .container{
+        width: var(--container-width-md);
+    }
+
+    /* Navbar */
+    .nav__container{
+        position: relative;
+    }
+
+    .nav__menu{
+        position: absolute;
+        top: 5rem;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav__menu li{
+        width: 100%;
+        box-shadow: -2rem 4rem 4rem rgba(0, 0, 0, 0.26);
+        animation: dropDown 500ms ease forwards;
+        opacity: 0;
+        transform: rotateX(90);
+        transform-origin: top;
+    }
+
+    @keyframes dropDown {
+        to {
+            opacity: 1;
+            transform: rotateX(0);
+        }
+    }
+    
+    .nav__menu li:nth-child(2){
+        animation-delay: 300ms;
+    }
+
+    .nav__menu li:nth-child(3){
+        animation-delay: 600ms;
+    }
+
+    .nav__menu li:nth-child(4){
+        animation-delay: 900ms;
+    }
+
+
+
+    .nav__menu li a{
+        display: block;
+        background: var(--color-white);
+        padding: 0.85rem 2.5rem;
+    }
+    
+    .nav__toggle-btn{
+        display: inline-block;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .posts__container{
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .footer__categories{
+        flex-direction: column;
+    }
+    
+    .post-detail{
+        width: 100%;
+        background: transparent;
+        padding: 0;
+    }
+    
+    .post-detail h1{
+        margin-top: 1rem;
+    }
+    
+    .register, .login, .create-post{
+        width: 100%;
+    }
+
+    .form.profile__from{
+        margin-top: 2.5rem;
+        width: 100%;
+    }
+
+    .authors__container{
+        grid-template-columns: 1fr;
+        gap: 1.2rem
+    }
+
+    .dashboard__post{
+        flex-direction: column;
+    }
+
+    .dashboard__post-info{
+        gap: 1.5rem
+    }
+    .dashboard__post-thumbnail{
+        width: 5rem;
+    }
+}
