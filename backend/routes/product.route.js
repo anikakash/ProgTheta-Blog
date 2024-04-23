@@ -7,7 +7,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-} = require("../controllers/product.controller.js");
+} = require("../controllers/post.controller.js");
 
 const { ensureAuthenticated } = require("../middleware/authMiddleware.js");
 
