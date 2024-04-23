@@ -12,7 +12,7 @@ const getPosts = async (req, res) => {
   //   res.status(500).json({ Message: error.message });
   // }
   try {
-    res.status(200).json({Message: "Get Posts"});
+    res.status(200).json({Message: "Get all Posts"});
   } catch (error) {
     
   }
@@ -35,7 +35,7 @@ const getPostById = async (req, res) => {
 
 
 // =============== Create Blog ===============
-// POST : /api/post/create-post
+// POST : /post/create-post
 
 const createPost = async (req, res) => {
   try {
@@ -49,7 +49,7 @@ const createPost = async (req, res) => {
 
 
 // =============== Update Blog ===============
-// POST : /api/post/update-post/:id
+// POST : /post/update-post/:id
 
 const updatePost = async (req, res) => {
   try {
@@ -70,7 +70,7 @@ const updatePost = async (req, res) => {
 
 
 // =============== delete Blog ===============
-// POST : /api/post/delete-post/:id
+// POST : /post/delete-post/:id
 
 
 const deletePost = async (req, res) => {

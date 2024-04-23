@@ -4,22 +4,29 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please enter product name"],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, "Please enter a valid email"],
+      required: true,
     },
     password: {
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+    },
+    posts: {
+      type: Number, 
+      default: 0
+    }
   },
   {
     timestamps: true,
   }
 );
 
-const userModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model("Users", userSchema);
 
 module.exports = userModel;
