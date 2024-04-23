@@ -7,15 +7,15 @@ const jwt = require("jsonwebtoken");
 // do password encrytion
 // save data to MongoDB
 // retrun response to the client
+
+// ================ REGISTER A NEW USER ====================
+// POST : /api/users/register
+
 const userRegistration = async (req, res) => {
   const userModel = new UserModel(req.body);
   userModel.password = await bcrypt.hash(req.body.password, 10);
   try {
-    const response = await userModel.save();
-    response.password = undefined; // we are not send password so erase it before send the response
-    res
-      .status(200)
-      .json({ message: "Registration Successful", data: response });
+      res.status(200).json({ message: "Registration Successful"});
   } catch (error) {
     res
       .status(500)
@@ -23,34 +23,42 @@ const userRegistration = async (req, res) => {
   }
 };
 
+
+// ================ Login A NEW USER ====================
+// POST : /api/users/login
+
+
 // Check user using email
 // Compare pass:
 // Create jwt
 // Send Response to client
 const userLogin = async (req, res) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(401).json({ message: "Auth faild, Invalid mail/pass" });
-    }
-    // check is correct password or not
-    const isPassEqual = await bcrypt.compare(req.body.password, user.password);
+    // const userCredential = await UserModel.findOne({ email: req.body.email });
+    // if (!userCredential) {
+    //   return res.status(401).json({ message: "Auth faild, Invalid mail/pass -> Controller" });
+    // }
+    // // check is correct password or not
+    // const isPassEqual = await bcrypt.compare(req.body.password, userCredential.password);
 
-    if (!isPassEqual) {
-      return res.status(401).json({ message: "Auth faild, Invalid mail/pass" });
-    }
+    // if (!isPassEqual) {
+    //   return res.status(401).json({ message: "Auth faild, Invalid mail/pass" });
+    // }
 
-    const tokenObject = {
-      _id: user._id,
-      Name: user.name,
-      email: user.email,
-    };
+    // const tokenObject = {
+    //   _id: userCredential._id,
+    //   Name: userCredential.name,
+    //   email: userCredential.email,
+    // };
 
-    const jwtToken = jwt.sign(tokenObject, process.env.SECRET, {
-      expiresIn: "4h",
-    });
+    // const jwtToken = jwt.sign(tokenObject, process.env.SECRET, {
+    //   expiresIn: "4h",
+    // });
 
-    return res.status(200).json({ jwtToken, tokenObject });
+    // return res.status(200).json({ jwtToken, tokenObject });
+
+    res.status(200).json({ message: "Login Successful"});
+
   } catch (error) {
     res
       .status(500)
@@ -58,7 +66,52 @@ const userLogin = async (req, res) => {
   }
 };
 
+
+// ================ GET ALL USER ====================
+// GET : /api/users/all
+const getUsers = async (req, res) => {
+  try {
+      res.status(200).json({ message: "User data retrive successfully"});
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+};
+
+
+// ================ GET ALL USER ====================
+// POST : /api/users/:id
+
+
+const getLoggedInUserInfo = async(req, res)=>{
+  try {
+    res.status(200).json({Message: "Logged In user info"});
+
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+}
+
+// ================ Edit USER AVATAR ====================
+// POST : /api/users/change-avatar/:id
+// PROTECTED
+const changeAvatar = (req, res, next) =>{
+  res.json("Change avatar");
+}
+
+
+// ================ EDIT USER DETATILS (from profile)====================
+// POST : /api/users/:id/change-avatar
+// PROTECTED
+const updateUser = (req, res, next) =>{
+  res.json("Change avatar");
+}
+
+
 module.exports = {
   userRegistration,
   userLogin,
+  getUsers,
+  getLoggedInUserInfo,
+  changeAvatar,
+  updateUser,
 };
