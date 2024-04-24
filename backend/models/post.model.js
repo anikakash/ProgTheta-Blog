@@ -1,32 +1,34 @@
-const mongoose = require("mongoose");
+const {Schema, model, mongoose} = require("mongoose")
 
 const postSchema = mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, "Please enter product name"],
-    },
-    quantity: {
-      type: Number,
       required: true,
-      default: 0,
     },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    image: {
+    category: {
       type: String,
-      required: false,
-      default: 0,
+      enum: ["LeetCode", "System-Design", "Problem-Solving", "Database", "Data-Structure", "AI"],
+      message: "Value is not supported",
     },
+    description: {
+      type: String,
+      required: true,
+    },
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref : "userModel"
+    },
+    thumbnail: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,
   }
 );
 
-const Post = mongoose.model("Product", postSchema);
+const Post = mongoose.model("Posts", postSchema);
 
 module.exports = Post;

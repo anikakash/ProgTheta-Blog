@@ -28,7 +28,7 @@ const userRegistration = async (req, res, next) => {
       const emailExists = await UserModel.findOne({email: newEmail});
 
       if(emailExists){
-        return next(new HttpError("Error already exists.", 422));
+        return next(new HttpError("Email already exists.", 422));
       }
 
       if((password.trim()).length < 6){
