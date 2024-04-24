@@ -9,14 +9,14 @@ const {
     updateUser
 } = require("../controllers/user.controller.js");
 
-// const { ensureAuthenticated } = require("../middleware/authMiddleware.js");
+const { ensureAuthenticated } = require("../middleware/authMiddleware.js");
 
 router.post("/register", userRegistration);
 router.post("/login", userLogin);
 router.get("/all", getUsers);
-router.get("/:id", getLoggedInUserInfo);
-router.patch("/change-avatar/:id", changeAvatar);
-router.patch("/update-user/:id", updateUser);
+router.get("/my-info",ensureAuthenticated, getLoggedInUserInfo);
+router.post("/change-avatar",ensureAuthenticated, changeAvatar);
+router.patch("/update-user",ensureAuthenticated, updateUser);
 
 
 module.exports = router;

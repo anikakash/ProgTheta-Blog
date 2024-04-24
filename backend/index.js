@@ -5,14 +5,18 @@ const userRoutes = require("./routes/user.route.js");
 const postRoutes = require("./routes/post.route.js");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 require("dotenv").config();
+const upload = require('express-fileupload')
+
+
+
 const app = express();
 
 // middle ware
 app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true})); // taking form input from postman
 app.use(cors({credentials: true, origin: "http://localhost:3000"}))
-
-
+app.use(upload());
+app.use('./uploads', express.static(__dirname + '/uploads'))
 
 
 app.use("/api/users", userRoutes);
