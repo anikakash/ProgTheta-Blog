@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const {v4: uuid} = require('uuid');
 const HttpError = require("../models/error.model")
+const mongoose = require('mongoose');
 
 
 // =============== Create Blog ===============
@@ -170,7 +171,7 @@ const getPosts = async (req, res) => {
 
 
 // =============== Get blog By ID ===============
-// GET : /api/post/:id
+// GET : /post/:id
 
 const getPostById = async (req, res, next) => {
   try {
@@ -185,6 +186,22 @@ const getPostById = async (req, res, next) => {
     res.status(500).json({ Message: error.message });
   }
 };
+
+
+// ============= GET Blog by user's ID ==============
+// GET: /post/users/:id
+const getPostByAuthorId = async(req, res, next)=>{
+  try {
+    const { id } = req.params;
+    const userPosts = await Post.find({creator: id}).sort({updatedAt : -1});
+    if(userPosts.length === 0){
+      return next(new HttpError(`Post not found for this author.`, 404));
+    }
+    res.status(200).json(userPosts);
+  } catch (err) {
+    res.status(500).json({ Message: error.message });
+  }
+}
 
 
 // ============= GET Blog by Catagory ==============
@@ -205,7 +222,7 @@ const getCatagoryBlog = async(req, res, next) =>{
 
 // ============= GET Blog by user ==============
 // GET: /post/users/all-posts
-const getUserPosts = async (req, res, next) => {
+const getLoggedUserPosts = async (req, res, next) => {
   try {
     const userId = req.user.id; 
 
@@ -220,6 +237,17 @@ const getUserPosts = async (req, res, next) => {
     res.status(500).json({ Message: error.message });
   }
 };
+//=================== GET CATAGORY==================
+// GET: post/all-category
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Post.distinct("category").lean();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+};
+
 
 module.exports = {
   getPosts,
@@ -228,5 +256,7 @@ module.exports = {
   updatePost,
   deletePost,
   getCatagoryBlog,
-  getUserPosts
+  getLoggedUserPosts,
+  getPostByAuthorId,
+  getAllCategories
 };

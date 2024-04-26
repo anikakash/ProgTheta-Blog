@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user.context';
 
 export const EditPost = () => {
   const [blog, setBlog] = useState({
@@ -9,6 +11,19 @@ export const EditPost = () => {
     thumbnail: '',
     description: ''
   });
+
+  const navigate = useNavigate(); 
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.jwtToken;
+
+  // Redirect to login page:
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
+
+
   const InputOnChange = (property, value)=>{
     setBlog(preObj=>({
         ...preObj, 
@@ -46,7 +61,7 @@ export const EditPost = () => {
 
               <select onChange={(e)=>{InputOnChange("catagory", e.target.value)}} value={blog.catagory}>
                         {
-                          POST_CATEGORIES.map((cat => <option id={cat}>{cat}</option>))
+                          POST_CATEGORIES.map((cat => <option key={cat}>{cat}</option>))
                         }
                 </select>
                 <ReactQuill modules={modules} formats={formats} onChange={(e) => {InputOnChange("description", e.target.value)}} value={blog.description} />

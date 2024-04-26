@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import UserProvider from './context/user.Context'
 import './index.css'
 import { AuthorPosts } from './pages/AuthorPosts'
 import { Authors } from './pages/Authors'
@@ -20,7 +21,7 @@ import { UserProfile } from './pages/UserProfile'
 const router = createBrowserRouter([
   { 
     path: "/",
-    element: <Layout/>,
+    element: <UserProvider><Layout/></UserProvider>,
     errorElement: <ErrorPage/>,
     children: [
       {index: true, element: <Home/>},
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       {path: "authors", element: <Authors/>},
       {path: "create-post", element: <CreatePost/>},
       {path: "posts/categories/:category", element: <CatagoryPosts/>},
-      {path: "posts/users/:id", element: <AuthorPosts/>},
+      {path: "posts/user/:id", element: <AuthorPosts/>},
       {path: "myposts/:id", element: <Dashboard/>},
       {path: "posts/:id/edit", element : <EditPost/>},
       {path: "posts/:id/delete", element : <DeletePost/>},

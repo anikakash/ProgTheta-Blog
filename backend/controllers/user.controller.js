@@ -46,6 +46,7 @@ const userRegistration = async (req, res, next) => {
       res.status(201).json(`New user ${newUser.email} registered.`);
 
   } catch (error) {
+    console.log(error);
     return next (new HttpError("User registration failed.", 422))
   }
 };
@@ -110,7 +111,7 @@ const getUsers = async (req, res) => {
 
 
 // ================ GET ALL USER ====================
-// POST : /api/users/:id
+// POST : /api/users/
 
 
 const getLoggedInUserInfo = async(req, res)=>{
@@ -126,6 +127,20 @@ const getLoggedInUserInfo = async(req, res)=>{
     res.status(500).json({ Message: error.message });
   }
 }
+
+// ================ GET USER BY ID =================
+// GET: / api/users/:id
+
+const getUserById = async(req, res) =>{
+  try {
+    const {id} = req.params;
+    const user = await UserModel.findById(id);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ Message: error.message });
+  }
+}
+
 
 // ================ Edit USER AVATAR ====================
 // POST : /api/users/change-avatar
@@ -247,4 +262,5 @@ module.exports = {
   getLoggedInUserInfo,
   changeAvatar,
   updateUser,
+  getUserById
 };

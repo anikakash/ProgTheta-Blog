@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaCheck, FaEdit } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../assets/avatar1.jpg';
+import { UserContext } from '../context/user.context';
 
 export const UserProfile = () => {
   const [avatar, setAvatar] = useState(Avatar);
@@ -12,6 +13,19 @@ export const UserProfile = () => {
     newPassword : '',
     confirmNewPassword : ''
   })
+
+  const navigate = useNavigate(); 
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.jwtToken;
+
+  // Redirect to login page:
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
+
+
     const inputOnChange = (property, value) =>{
       setUserData(preObj => ({
         ...preObj, 

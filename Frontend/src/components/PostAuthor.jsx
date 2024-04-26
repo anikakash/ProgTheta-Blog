@@ -1,19 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Avatar from '../assets/avatar2.jpg'
-const PostAuthor = () => {
-  return (
-    <Link to={`/posts/users/sdfsdf`} className="post__author">
-        <div className="post__author-avatar">
-            <img src={Avatar} alt="" />
-        </div>
-        
-        <div className="post__author-details">
-            <h5>By: Jhon Duo</h5>
-            <small>Just Now</small>
-        </div>
-    </Link>
-  )
-}
+import axios from 'axios';
+import TimeAgo from 'javascript-time-ago';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ReactTimeAgo from 'react-time-ago';
 
-export default PostAuthor
+import en from 'javascript-time-ago/locale/en.json';
+import ru from 'javascript-time-ago/locale/ru.json';
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
+
+const PostAuthor = ({ authorID, createdAt }) => {
+  const [author, setAuthor] = useState();
+
+  useEffect(() => {
+    const getAuthor = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/profile/${authorID}`);
+        setAuthor(response?.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getAuthor();
+  }, []);
+
+  return (
+    <Link to={`/posts/user/${authorID}`} className="post__author">
+      <div className="post__author-avatar">
+        <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${author?.avatar}`} alt={author?.name} />
+      </div>
+      <div className="post__author-details">
+        <h5>{author?.name}</h5>
+        <small><ReactTimeAgo date={new Date(createdAt)} local='en-US'/></small>
+      </div>
+    </Link>
+  );
+};
+
+export default PostAuthor;
