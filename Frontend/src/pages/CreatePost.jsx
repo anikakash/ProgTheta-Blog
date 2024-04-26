@@ -1,56 +1,54 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user.context';
 
 export const CreatePost = () => {
+  
+
   const [blog, setBlog] = useState({
     title: '',
     category:'',
     thumbnail: '',
     description: ''
   });
-  const inputOnChange  = (property, value)=>{
-    setBlog(preObj=>({
-        ...preObj, 
-        [property] : value
-    }))
-  }
-  // const modules = {
-  //   toolbar : [
-  //     [{'header' : [1, 2,3, false]}],
-  //     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-  //     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent' : '-1'}, {'indent' : '+1'}],
-  //     ['link', 'image'],
-  //     ['clean']
-  //   ],
-  // }
 
-  // const formats = [
-  //   'header',
-  //   'bold', 'italic', 'underline', 'strike', 'blockquote',
-  //   'list', 'bullet', 'indent',
-  //   'link', 'image'
-  // ]
+  const navigate = useNavigate(); 
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.jwtToken;
 
-    const POST_CATEGORIES = ["Programming", "System-Designe", "LeetCode", "Problem-Solving", "Operating-System", "DataBase", "Data-Structure", "Uncatergorized"]
+  // Redirect to login page:
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
+
+  const inputOnChange = (property, value) => {
+    setBlog(prevObj => ({
+        ...prevObj, 
+        [property]: value
+    }));
+  };
+
+  const POST_CATEGORIES = ["Programming", "System-Design", "LeetCode", "Problem-Solving", "Operating-System", "DataBase", "Data-Structure", "Uncategorized"];
 
   return (
     <section className="create-post">
       <div className="container">
         <h2>Create Post</h2>
-          <p className="form__error-message">
-            This is an error message
-          </p>
-          <form className="form create-post__from">
-              <input onChange={(e)=>{inputOnChange ("title", e.target.value)}} value={blog.title} type="text" placeholder = 'Title' />
+        <p className="form__error-message">
+          This is an error message
+        </p>
+        <form className="form create-post__from">
+          <input onChange={(e) => { inputOnChange("title", e.target.value) }} value={blog.title} type="text" placeholder='Title' />
 
-              <select onChange={(e)=>{inputOnChange ("category", e.target.value)}} value={blog.category}>
-                        {
-                          POST_CATEGORIES.map((cat => <option key={cat}>{cat}</option>))
-                        }
-                </select>
+          <select onChange={(e) => { inputOnChange("category", e.target.value) }} value={blog.category}>
+            {POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)}
+          </select>
 
-                 <ReactQuill
+          <ReactQuill
             modules={{
               toolbar: [
                 [{ 'header': [1, 2, 3, false] }],
@@ -70,12 +68,11 @@ export const CreatePost = () => {
             value={blog.description}
           />
 
+          <input onChange={(e) => { inputOnChange("thumbnail", e.target.value) }} value={blog.thumbnail} accept="image/*" type="file" />
 
-                <input onChange={(e) => {inputOnChange ("thumbnail", e.target.value)}} value={blog.thumbnail} accept="image/*" type="file" />
-
-                <button type="submit" className="btn primary">Create</button>
-          </form>
+          <button type="submit" className="btn primary">Create</button>
+        </form>
       </div>
     </section>
-  )
-}
+  );
+};

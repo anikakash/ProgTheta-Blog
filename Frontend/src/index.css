@@ -506,6 +506,22 @@ input, select, textarea{
     display: flex;
     gap: 1rem;
 }
+/* ======================= LOADER ========================*/
+
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
+.loader__image{
+    width: 4.5rem;
+    aspect-ratio: 1/1;
+}
 
 
 /* ===================== Media Queries(small devics) ================== */
