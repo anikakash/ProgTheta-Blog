@@ -24,9 +24,8 @@ export const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      // const response = await axios.post(`${import.meta.env. VITE_API_BASE_URL}/users/register`, userData);
+
       const reponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/users/register`, userData);
-      // console.log(newUser);
       const newUser = await reponse.data;
       console.log(newUser);
       if(!newUser){

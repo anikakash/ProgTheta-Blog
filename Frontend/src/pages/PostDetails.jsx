@@ -47,7 +47,7 @@ export const PostDetails = () => {
 
             {currentUser?.tokenObject?.id == post?.creator && 
             <div className="post-detail_buttons">
-              <Link to={`/posts/${post._id}/edit`} className='btn sm primary'>Edit</Link>
+              <Link to={`/post/${post._id}/edit`} className='btn sm primary'>Edit</Link>
               <DeletePost postId={id}/>
             </div> }
           </div>

@@ -25,7 +25,7 @@ export const Header = () => {
         </Link>
         {
           currentUser?.tokenObject?.id  && isNavShowing && <ul className="nav__menu">
-          <li><Link to='/profile/sdfsdf' onClick={closeNavHandler}>Anik Akash</Link></li>
+          <li><Link to={`/profile/${currentUser?.tokenObject?.id}`} onClick={closeNavHandler}>{currentUser?.tokenObject?.Name}</Link></li>
           <li><Link to='/create-post' onClick={closeNavHandler}>Create Post</Link></li>
           <li><Link to='/authors' onClick={closeNavHandler}>Authors</Link></li>
           <li><Link to='/logout' onClick={closeNavHandler}>Logut</Link></li>

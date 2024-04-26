@@ -35,7 +35,7 @@ export const UserProfile = () => {
   return (
     <section className="profile">
         <div className="container profile__container">
-          <Link to='/myposts/sdfsdf' className='btn'>My Posts</Link>
+          <Link to={`/dashboard/my-posts`} className='btn'>My Posts</Link>
 
 
             <div className="avatar__wrapper">

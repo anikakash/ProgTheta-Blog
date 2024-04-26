@@ -14,7 +14,10 @@ const app = express();
 // middle ware
 app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true})); // taking form input from postman
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true
+}))
 app.use(upload());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 

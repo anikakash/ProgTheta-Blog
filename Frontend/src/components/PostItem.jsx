@@ -14,10 +14,10 @@ export const PostItem = ({postID, category, title, description, authorID, thumbn
         </div>
 
         <div className="post__content">
-            <Link to={`/posts/${postID}`}>
+            <Link to={`/post/${postID}`}>
                 <h3>{postTitle}</h3>
             </Link>
-            <p>{shortDescription}</p>
+            <p dangerouslySetInnerHTML={{__html: shortDescription}}/>
 
             <div className="post__footer">
                 <PostAuthor authorID={authorID} createdAt={createdAt}/>
