@@ -16,8 +16,7 @@ const {v4: uuid} = require("uuid");
 // POST : /api/users/register
 
 const userRegistration = async (req, res, next) => {
-  // const userModel = new UserModel(req.body);
-  // userModel.password = await bcrypt.hash(req.body.password, 10);
+
   try {
       const {name, email, password, password2} = req.body;
       if(!name || !email || !password || !password2){
@@ -85,7 +84,7 @@ const userLogin = async (req, res) => {
     };
 
     const jwtToken = jwt.sign(tokenObject, process.env.JWT_SECRET, {
-      expiresIn: "4h",
+      expiresIn: "10m",
     });
 
     return res.status(200).json({ jwtToken, tokenObject });
