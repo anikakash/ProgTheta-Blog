@@ -9,39 +9,43 @@ const mongoose = require('mongoose');
 
 // =============== Create Blog ===============
 // POST : /post/create-post
-
 const createPost = async (req, res, next) => {
   try {
-    let {title, category, description} = req.body;
-    if(!title || !category || !description){
-      return next(HttpError("Fill in all the fields and choose thumbnail.", 422));
+    let { title, category, description } = req.body;
+    if (!title || !category || !description) {
+      return next(new HttpError("Fill in all the fields and choose thumbnail.", 422));
     }
 
-      const {thumbnail} = req.files;
-      //check the file size;
-      if(thumbnail.size > 2000000 ){
-        return next(HttpError("Thumbnail too big. File Should be less than 2MB."));
-      }
+    // Check if 'thumbnail' exists in 'req.files'
+    if (!req.files || !req.files.thumbnail) {
+      return next(new HttpError("Thumbnail file is missing.", 422));
+    }
 
-      let fileName = thumbnail.name;
-      let splittedFilename = fileName.split('.');
-      let newFilename = splittedFilename[0]+uuid() + "." + splittedFilename[splittedFilename.length-1];
-      thumbnail.mv(path.join(__dirname, '..', '/uploads', newFilename), async(err)=>{
-        if(err){
-          return next(new HttpError(err));
-        }else{
-          const newPost = await Post.create({title, category, description, thumbnail: newFilename, creator: req.user.id});
-          if(!newPost){
-            return next(HttpError("post couldn't be created.", 422));
-          }
-          // Increase user post count:
-          const currentUser = await UserModel.findById(req.user.id);
-          let userPostCount = currentUser.posts || 0;
-          userPostCount += 1;
-          await UserModel.findByIdAndUpdate(req.user.id, {posts: userPostCount})
-          res.status(201).json(newPost);
+    const { thumbnail } = req.files;
+    // Check the file size
+    if (thumbnail.size > 2000000) {
+      return next(new HttpError("Thumbnail too big. File should be less than 2MB.", 422));
+    }
+
+    let fileName = thumbnail.name;
+    let splittedFilename = fileName.split('.');
+    let newFilename = splittedFilename[0] + uuid() + "." + splittedFilename[splittedFilename.length - 1];
+    thumbnail.mv(path.join(__dirname, '..', '/uploads', newFilename), async (err) => {
+      if (err) {
+        return next(new HttpError(err));
+      } else {
+        const newPost = await Post.create({ title, category, description, thumbnail: newFilename, creator: req.user.id });
+        if (!newPost) {
+          return next(new HttpError("Post couldn't be created.", 422));
         }
-      })
+        // Increase user post count:
+        const currentUser = await UserModel.findById(req.user.id);
+        let userPostCount = currentUser.posts || 0;
+        userPostCount += 1;
+        await UserModel.findByIdAndUpdate(req.user.id, { posts: userPostCount });
+        res.status(201).json(newPost);
+      }
+    });
   } catch (error) {
     res.status(500).json({ Message: error.message });
   }
@@ -65,7 +69,7 @@ const updatePost = async (req, res, next) => {
     const oldPost = await Post.findById(postId);
 
     // Check if the user is authorized to update the post
-    if (req.user.id !== oldPost.creator) {
+    if (req.user.id !== oldPost.creator.toString()) {
       return next(new HttpError("You are not authorized to update this post", 403));
     }
 
@@ -124,7 +128,7 @@ const deletePost = async (req, res, next) => {
     }
 
     // Check if the current user is the creator of the post
-    if (req.user.id !== post.creator) {
+    if (req.user.id !== post.creator.toString()) {
       return next(new HttpError("You are not authorized to delete this post.", 403));
     }
 

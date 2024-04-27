@@ -1,21 +1,41 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user.context';
-import { DUMMY_POSTS } from '../data';
 
 export const Dashboard = () => {
-  const [posts, setPosts] = useState(DUMMY_POSTS)
 
+  const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate(); 
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.jwtToken;
+  const id = currentUser?.tokenObject?.id;
 
   // Redirect to login page:
   useEffect(() => {
     if (!token) {
       navigate('/login');
     }
-  }, []);
+  },);
+
+
+  useEffect (()=>{
+        const getPosts = async() =>{
+          setIsLoading(true);
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/post/users/my-posts`,{
+                  withCredentials: true,
+                  headers: { authorization: `${currentUser?.jwtToken}`}
+                })
+                setPosts(response.data);
+            } catch (error) {
+              console.log(error);
+            }
+            setIsLoading(false);
+        }
+        getPosts();
+  }, [])
 
   return (
     <section className="dashboard">
@@ -26,7 +46,7 @@ export const Dashboard = () => {
                 return <article key={post.id} className = 'dashboard__post'>
                   <div className="dashboard__post-info">
                       <div className="dashboard__post-thumbnail">
-                          <img src={post.thumbnail} alt="" />
+                          <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
                       </div>
                       <h5>{post.title}</h5>
                   </div>

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children: [
       {index: true, element: <Home/>},
-      {path: "posts/:id", element: <PostDetails/>},
+      {path: "post/:id", element: <PostDetails/>},
       {path: "register", element: <Register/>},
       {path: "login", element: <Login/>},
       {path: "profile/:id", element: <UserProfile/>},
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
       {path: "create-post", element: <CreatePost/>},
       {path: "posts/categories/:category", element: <CatagoryPosts/>},
       {path: "posts/user/:id", element: <AuthorPosts/>},
-      {path: "myposts/:id", element: <Dashboard/>},
-      {path: "posts/:id/edit", element : <EditPost/>},
+      {path: "/dashboard/my-posts", element: <Dashboard/>},
+      {path: "post/:id/edit", element : <EditPost/>},
       {path: "posts/:id/delete", element : <DeletePost/>},
       {path: "logout", element: <Logout/>},
     ]
