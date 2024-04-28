@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {path: "posts/user/:id", element: <AuthorPosts/>},
       {path: "/dashboard/my-posts", element: <Dashboard/>},
       {path: "post/:id/edit", element : <EditPost/>},
-      {path: "posts/:id/delete", element : <DeletePost/>},
+      {path: "post/:id/delete", element : <DeletePost/>},
       {path: "logout", element: <Logout/>},
     ]
   }

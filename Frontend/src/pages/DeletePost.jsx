@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 import { UserContext } from '../context/user.context';
 
 
@@ -8,6 +9,7 @@ export const DeletePost = ({postId: id}) => {
 
   const location = useLocation();
   const navigate = useNavigate(); 
+  const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.jwtToken;
 
@@ -18,7 +20,12 @@ export const DeletePost = ({postId: id}) => {
     }
   }, []);
 
+  if(isLoading){
+    return <Loader/>
+  }
+
   const removePost = async () =>{
+    setIsLoading(true);
     try {
       const response = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/post/delete-post/${id}`, {
         withCredentials: true, 
@@ -26,12 +33,13 @@ export const DeletePost = ({postId: id}) => {
       }});
 
       if(response.status == 200){
-        if(location.pathname == `/myposts/${currentUser?.tokenObject?.id}`){
+        if(location.pathname == `/dashboard/my-posts}`){
           navigate(0);
         }else{
           navigate('/');
         }
       }
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }

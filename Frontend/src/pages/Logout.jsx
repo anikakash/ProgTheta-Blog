@@ -7,6 +7,7 @@ export const Logout = () => {
   const {setCurrentUser} = useContext(UserContext);
   const navigate = useNavigate();
   setCurrentUser(null);
+  navigate('/')
   return (
     <div></div>
   )

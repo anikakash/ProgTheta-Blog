@@ -84,7 +84,7 @@ const userLogin = async (req, res) => {
     };
 
     const jwtToken = jwt.sign(tokenObject, process.env.JWT_SECRET, {
-      expiresIn: "10m",
+      expiresIn: "4h",
     });
 
     return res.status(200).json({ jwtToken, tokenObject });
@@ -209,49 +209,59 @@ const changeAvatar = async (req, res, next) => {
 // ================ EDIT USER DETATILS (from profile)====================
 // POST : /api/users/:id/change-avatar
 // PROTECTED
-const updateUser = async (req, res, next) =>{
+const updateUser = async (req, res, next) => {
   try {
-    const {name, email, currentPassword, newPasword, newConfirmNewPassword} = req.body;
-
-    // if(!name || !email || !currentPassword || !newPasword || !newConfirmNewPassword){
-    //   return next(new HttpError("Fill in all fields.", 422))
-    // }
+    const { name, email, currentPassword, newPassword, confirmNewPassword } = req.body;
 
     const user = await UserModel.findById(req.user.id);
-    if(!user){
+    if (!user) {
       return next(new HttpError("User not found.", 403));
-    }
-
-    // new email: is trying to update other email or not check
-    const emailExist = await UserModel.findOne({email});
-    if(emailExist && (emailExist._id != req.user.id)){
-      return next(new HttpError("Email already exist.", 422));
     }
 
     const validUserPassword = await bcrypt.compare(currentPassword, user.password);
 
-    if(!validUserPassword){
-      return next(new HttpError("Invalied current Password.", 422));
+      if (!validUserPassword) {
+        return next(new HttpError("Provide Correct Password.", 422));
+      }
+
+    // Update email if provided and not already taken
+    if (email) {
+      const emailExist = await UserModel.findOne({ email });
+      if (emailExist && (emailExist._id != req.user.id)) {
+        return next(new HttpError("Email already exists.", 422));
+      }
+      user.email = email;
     }
 
-    if(newPasword !== newConfirmNewPassword){
-      return next(new HttpError("New password do not match", 422));
+    // Update name if provided
+    if (name) {
+      user.name = name;
     }
 
-    // hash new pass:
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(newPasword, salt);
+    // Validate and update password if provided
+    if (newPassword && confirmNewPassword) {
 
-    // update: 
+      if (newPassword !== confirmNewPassword) {
+        return next(new HttpError("New passwords do not match", 422));
+      }
 
-    let newInfo = await UserModel.findByIdAndUpdate(req.user.id, {name, email, password: hash}, {new : true});
-    newInfo.password = undefined;
-    res.status(200).json(newInfo);
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(newPassword, salt);
+      user.password = hash;
+    }
 
+    // Save updated user information
+    await user.save();
+
+    // Remove password field from response
+    user.password = undefined;
+
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ Message: error.message });
   }
 }
+
 
 
 module.exports = {

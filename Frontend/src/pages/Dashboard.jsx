@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 import { UserContext } from '../context/user.context';
+import DeletePost from './DeletePost';
 
 export const Dashboard = () => {
 
@@ -17,7 +19,7 @@ export const Dashboard = () => {
     if (!token) {
       navigate('/login');
     }
-  },);
+  },[]);
 
 
   useEffect (()=>{
@@ -30,12 +32,16 @@ export const Dashboard = () => {
                 })
                 setPosts(response.data);
             } catch (error) {
-              console.log(error);
+              console.log("No post to show");
             }
             setIsLoading(false);
         }
         getPosts();
   }, [])
+
+  if(isLoading){
+    return <Loader/>
+  }
 
   return (
     <section className="dashboard">
@@ -51,9 +57,10 @@ export const Dashboard = () => {
                       <h5>{post.title}</h5>
                   </div>
                   <div className="dashboard__post-actions">
-                    <Link to ={`/posts/${post.id}`} className='btn sm'>View</Link>
-                    <Link to ={`/posts/${post.id}/edit`} className='btn sm primary'>Edit</Link>
-                    <Link to ={`/posts/${post.id}/delete`} className='btn sm danger'>Delete</Link>
+                    <Link to ={`/post/${post._id}`} className='btn sm'>View</Link>
+                    <Link to ={`/post/${post._id}/edit`} className='btn sm primary'>Edit</Link>
+                    <DeletePost postId={post._id}/>
+                    
                   </div>
                 </article>
               })
