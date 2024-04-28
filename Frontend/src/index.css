@@ -412,15 +412,25 @@ input, select, textarea{
     place-items: center;
     text-align: center;
 }
-
+.profile__details{
+    width: 100%;
+}
 .avatar__wrapper{
     width: 15rem;
+    aspect-ratio: 1/1;
     position: relative;
     margin-inline: auto;
     margin-top: 1rem;
 }
 
+.profile__avatar{
+    height: 100%;
+    border-radius: 50%;
+    border: 1rem solid var(--color-white);
+    overflow: hidden;
+}
 .profile__avatar img{
+    height: 100%;
     height: 100%;
     border-radius: 50%;
     border: 12px solid white;
@@ -440,10 +450,10 @@ input, select, textarea{
     color: var(--color-white);
     font-size: 1.2rem;
     position: absolute;
-    right: 3rem;
-    bottom: 2rem;
-    width: 2.3rem;
-    height: 2.3rem;
+    right: 2rem;
+    bottom: 1.4rem;
+    width: 3rem;
+    height: 3rem;
     display: grid;
     place-items: center;
     border-radius: 50%;
@@ -452,7 +462,7 @@ input, select, textarea{
 .profile__avatar-btn{
     cursor: pointer;
     padding: 0;
- 
+    font-size: 2rem;
     background: var(--color-primary);
 }
 
