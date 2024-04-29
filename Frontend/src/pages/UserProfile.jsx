@@ -123,9 +123,9 @@ export const UserProfile = () => {
               <h1>{currentUser.tokenObject.Name}</h1>
 
               {/* form to update user info */}
-              {error && <p className="form__error-message">{error}</p>}
+              
               <form onSubmit={updateInfo} className="form profile__from">
-                  
+              {error && <p className="form__error-message">{error}</p>}
                   <input type="text" placeholder="Full name" onChange={e=>{inputOnChange("name", e.target.value)}} value = {userData.name} />
                   <input type="text" placeholder="Email"     onChange={e=>{inputOnChange("email", e.target.value)}} value = {userData.email} />
                   <input type="text" placeholder="Current password" onChange={e=>{inputOnChange("currentPassword", e.target.value)}} value = {userData.currentPassword} />

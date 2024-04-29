@@ -49,21 +49,22 @@ export const Dashboard = () => {
         posts.length ? <div className="container dashboard__container">
             {
               posts.map(post => {
-                return <article key={post.id} className = 'dashboard__post'>
-                  <div className="dashboard__post-info">
+                return (
+                  <article key={post._id} className='dashboard__post'>
+                    <div className="dashboard__post-info">
                       <div className="dashboard__post-thumbnail">
-                          <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
+                        <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
                       </div>
                       <h5>{post.title}</h5>
-                  </div>
-                  <div className="dashboard__post-actions">
-                    <Link to ={`/post/${post._id}`} className='btn sm'>View</Link>
-                    <Link to ={`/post/${post._id}/edit`} className='btn sm primary'>Edit</Link>
-                    <DeletePost postId={post._id}/>
-                    
-                  </div>
-                </article>
-              })
+                    </div>
+                    <div className="dashboard__post-actions">
+                      <Link key={`view-${post._id}`} to={`/post/${post._id}`} className='btn sm'>View</Link>
+                      <Link key={`edit-${post._id}`} to={`/post/${post._id}/edit`} className='btn sm primary'>Edit</Link>
+                      <DeletePost key={`delete-${post._id}`} postId={post._id}/>
+                    </div>
+                  </article>
+                );
+              })              
             }
         </div> : <h2 className="center"> You have no posts yet.</h2>
       }
