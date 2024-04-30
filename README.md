@@ -99,3 +99,18 @@ To run this project locally, follow these steps:
  ```npm run dev```
 
 
+# Repo Stats: 
+
+[![GitHub stars](https://img.shields.io/github/stars/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/network)
+[![GitHub watchers](https://img.shields.io/github/watchers/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/watchers)
+<!-- [![GitHub contributors](https://img.shields.io/github/contributors/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/graphs/contributors) -->
+[![GitHub last commit](https://img.shields.io/github/last-commit/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/commits/main)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog)
+[![GitHub language count](https://img.shields.io/github/languages/count/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog)
+[![GitHub top language](https://img.shields.io/github/languages/top/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog)
+[![GitHub open issues](https://img.shields.io/github/issues-raw/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/anikakash/ProgTheta-Blog)](https://github.com/anikakash/ProgTheta-Blog/pulls?q=is%3Apr+is%3Aclosed)
+
