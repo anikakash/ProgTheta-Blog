@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { UserContext } from '../context/user.context';
+import { UserContext } from '../context/user.Context';
 
 
 export const DeletePost = ({postId: id}) => {

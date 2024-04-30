@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user.context';
+import { UserContext } from '../context/user.Context';
 
 export const UserProfile = () => {
   const [avatar, setAvatar] = useState('');
