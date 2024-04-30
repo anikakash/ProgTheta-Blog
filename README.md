@@ -32,6 +32,11 @@ This is a Full Stack blog application built using the MERN stack . It allows use
 - **Email:** anik@gmail.com
 - **Password:** 123456
 
+## DB Schema:
+
+![DB Schema](./BD_Schema.png)
+
+
 ## Installation
 
 To run this project locally, follow these steps:
