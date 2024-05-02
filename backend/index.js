@@ -39,3 +39,6 @@ mongoose
   .catch(() => {
     console.log("DB Connection faild!");
   });
+
+
+module.exports = app;
