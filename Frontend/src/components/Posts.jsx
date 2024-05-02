@@ -13,6 +13,7 @@ const Posts = () => {
 
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/post/all`);
+                console.log('Response from API: ', response);
                 setPosts(response?.data);
             } catch (err) {
                 console.log(err);
