@@ -14,7 +14,10 @@ const app = express();
 app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true})); // taking form input from postman
 app.use(cors({
-  origin: 'https://blog-progtheta.netlify.app/',
+  origin: [
+    "http://localhost:5173",
+    "https://blog-progtheta.netlify.app/",
+  ],
   credentials: true
 }));
 app.use(upload());
