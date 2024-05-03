@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import PostAuthor from '../components/PostAuthor';
-import { UserContext } from '../context/user.context';
+import { UserContext } from '../context/user.Context';
 import DeletePost from './DeletePost';
 
 export const PostDetails = () => {

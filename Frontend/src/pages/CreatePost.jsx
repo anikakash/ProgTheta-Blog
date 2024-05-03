@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user.context';
+import { UserContext } from '../context/user.Context';
 
 export const CreatePost = () => {
   const [blog, setBlog] = useState({
