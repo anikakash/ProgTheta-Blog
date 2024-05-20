@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true})); // taking form input from postma
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://blog-progtheta.netlify.app/",
   ],
   credentials: true
 }));
@@ -36,7 +35,7 @@ mongoose
   .then(() => {
     console.log("Connect to database!");
     app.listen(PORT, () => {
-      console.log("Server is running on port 3000");
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch(() => {

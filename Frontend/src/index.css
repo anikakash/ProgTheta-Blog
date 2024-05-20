@@ -120,6 +120,8 @@ section{
     color: var(--color-white);
 }
 
+
+
 .btn:hover{
     background: var(--color-gray-900);
     color: var(--color-white);
@@ -202,7 +204,7 @@ footer{
 
 .center{
     text-align: center;
-    padding-top: 5rem;
+    margin-top: 5rem;
     margin-inline: auto;
     display: flex;
     flex-direction: column; /* Align items vertically */
@@ -245,6 +247,14 @@ footer{
     border-radius: var(--radius-3);
     object-fit: cover;
 }
+
+.pagination__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+ }
 
 .post:hover {
     transform: translateY(-5px);

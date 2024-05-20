@@ -161,17 +161,44 @@ const deletePost = async (req, res, next) => {
 
 
 // =============== Get blog ===============
-// GET : /api/post/all
+// =========== Pagination API ==================
+// GET : /api/post/page={num}?limit={num}
 const getPosts = async (req, res) => {
   try {
-    const Posts = await Post.find().sort({updatedAt : -1})
-    if(Posts.length==0) res.status(200).json({Message: "Not Post found"});
-    res.status(200).json(Posts);
+    const { page: pageNo, pageSize: pageSizeNo } = req.query;
+    
+    const page = parseInt(pageNo);
+    const pageSize = parseInt(pageSizeNo)
+    // console.log(page, pageSize);
+
+    // Validate page and pageSize
+    if (isNaN(page) || isNaN(pageSize) || page <= 0 || pageSize <= 0) {
+      return res.status(400).json({ Message: "Invalid page or pageSize" });
+    }
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = page * pageSize;
+
+    const totalPosts = await Post.countDocuments(); // Count total posts
+    const totalPage = Math.ceil(totalPosts / pageSize);
+
+    const posts = await Post.find().skip(startIndex).limit(pageSize).sort({ createdAt: -1 });
+
+    // const posts = await Post.find().slice(startIndex, endIndex);
+
+    if (posts.length === 0) {
+      return res.status(200).json({ Message: "No posts found" });
+    }
+    // console.log(totalPage)
+    res.status(200).json({ posts, totalPage });
   } catch (error) {
     res.status(500).json({ Message: error.message });
   }
-  
 };
+
+
+
+
 
 
 // =============== Get blog By ID ===============

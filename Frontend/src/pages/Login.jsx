@@ -29,7 +29,8 @@ export const Login = () => {
       setCurrentUser(user);
       navigate('/');
     } catch (err) {
-      setError(err.response ? err.response.data : "An error occurred");
+      console.log(err)
+      setError(err.response.data.message);
     }
   };
 
@@ -38,7 +39,7 @@ export const Login = () => {
       <div className="container">
         <h2>Sign In</h2>
         <form onSubmit={loginUser} className="form login__form">
-        {error && <p className="form__error-message">{error.message}</p>}
+        {error && <p className="form__error-message">{error}</p>}
           <input onChange={(e) => handleInputChange("email", e.target.value)} value={userData.email} type="text" placeholder={"Email"} autoFocus />
           <input onChange={(e) => handleInputChange("password", e.target.value)} value={userData.password} type="password" placeholder={"Password"} />
           <button type='submit' className="btn primary">Login</button>

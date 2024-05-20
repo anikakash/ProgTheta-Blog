@@ -14,7 +14,7 @@ const {
 
 const { ensureAuthenticated } = require("../middleware/authMiddleware.js");
 
-router.get("/all", getPosts);
+router.get("/", getPosts);
 router.get("/:id", getPostById);
 router.get("/user-posts/:id", getPostByAuthorId);
 router.get("/categories/:category", getCatagoryBlog);

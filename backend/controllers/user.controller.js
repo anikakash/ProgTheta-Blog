@@ -20,7 +20,7 @@ const userRegistration = async (req, res, next) => {
   try {
       const {name, email, password, password2} = req.body;
       if(!name || !email || !password || !password2){
-        return next(new HttpError("Fill in all fields.", 422));
+        return next(new HttpError("All fields registered!"))
       }
 
       const newEmail = email.toLowerCase();
@@ -63,7 +63,7 @@ const userLogin = async (req, res) => {
   try {
     const {email, password} = req.body;
     if(!email || !password) {
-      return res.status(422).json(`Fill in all fields.`);
+      return next(new HttpError("All fields registered!"))
     }
     const newEmail = email.toLowerCase();
     const userCredential = await UserModel.findOne({ email: newEmail});
@@ -84,15 +84,15 @@ const userLogin = async (req, res) => {
     };
 
     const jwtToken = jwt.sign(tokenObject, process.env.JWT_SECRET, {
-      expiresIn: "5m",
+      expiresIn: "4h",
     });
 
     return res.status(200).json({ jwtToken, tokenObject });
 
   } catch (error) {
     res
-      .status(500)
-      .json({ message: "Login Faild ", Message: error.toString() });
+      .status(401)
+      .json({ message: "Login Faild " });
   }
 };
 
