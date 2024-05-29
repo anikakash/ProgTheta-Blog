@@ -11,26 +11,7 @@ This is a Full Stack blog application built using the MERN stack . It allows use
 - JWT Authentication
 - HTML/CSS
 
-## Features
 
-1. **Registration and Sign in With JWT Token:** Users can register and sign in securely using JWT token authentication.
-
-2. **Post Management:**
-   - Registered users can create, update, and delete their created posts.
-   
-3. **Text Editor Integration:**
-   - A text editor is integrated where authors can set thumbnails for their posts.
-   
-4. **Author Profile:**
-   - Each author has a profile where their username, image, and post count are displayed in a small card view.
-   
-5. **Post Filtering:**
-   - Posts can be viewed under author profiles or sorted by categories.
-
-## Existing User Credentials for Testing
-
-- **Email:** anik@gmail.com
-- **Password:** 123456
 
 ## DB Schema:
 
