@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/user.route.js");
 const postRoutes = require("./routes/post.route.js");
+const categoryRoutes = require("./routes/category.route.js")
 const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 require("dotenv").config();
 const upload = require('express-fileupload')
@@ -25,6 +26,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use("/api/users", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/category", categoryRoutes);
 // 404 page handle:
 app.use(notFound);
 app.use(errorHandler)
