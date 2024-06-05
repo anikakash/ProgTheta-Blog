@@ -61,10 +61,28 @@ const updateCategory = async(req, res) =>{
 }
 
 
+const deleteCategory = async(req, res) =>{
+    try{
+        const categoryId = req.params.id;
+
+         // already exists or not.
+         const isExist = await categoryModel.findById(categoryId);
+         if(!isExist){
+             return res.status(422).json("Catagory is not available.");
+         }else{
+            await categoryModel.findByIdAndDelete(categoryId)
+         }
+         return res.status(200).json("Category removed.");
+
+    }catch(error){
+        res.status(500).json({ Message: error.message });
+    }
+}
 
 
 module.exports = {
     createCategory,
     updateCategory,
-    allCategory
+    allCategory,
+    deleteCategory
 };
