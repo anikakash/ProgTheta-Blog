@@ -7,9 +7,9 @@ const postSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: String,
-      enum: ["LeetCode", "System-Design", "Problem-Solving", "Database", "Data-Structure", "AI", "Uncategorized"],
-      message: "Value is not supported",
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
     },
     description: {
       type: String,

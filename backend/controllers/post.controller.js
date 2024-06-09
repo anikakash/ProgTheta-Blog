@@ -1,5 +1,6 @@
 const Post = require("../models/post.model");
 const UserModel = require("../models/user.model")
+const Category = require("../models/category.model");
 const fs = require('fs');
 const path = require('path');
 const {v4: uuid} = require('uuid');
@@ -27,6 +28,13 @@ const createPost = async (req, res, next) => {
       return next(new HttpError("Thumbnail too big. File should be less than 2MB.", 422));
     }
 
+     // Find the category by its title
+     const categoryExists = await Category.findOne({ title: category });
+     if (!categoryExists) {
+       return next(new HttpError("Invalid category title.", 422));
+     }
+
+
     let fileName = thumbnail.name;
     let splittedFilename = fileName.split('.');
     let newFilename = splittedFilename[0] + uuid() + "." + splittedFilename[splittedFilename.length - 1];
@@ -34,7 +42,7 @@ const createPost = async (req, res, next) => {
       if (err) {
         return next(new HttpError(err));
       } else {
-        const newPost = await Post.create({ title, category, description, thumbnail: newFilename, creator: req.user.id });
+        const newPost = await Post.create({ title, category:categoryExists._id , description, thumbnail: newFilename, creator: req.user.id });
         if (!newPost) {
           return next(new HttpError("Post couldn't be created.", 422));
         }

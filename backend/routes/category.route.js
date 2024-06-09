@@ -12,7 +12,7 @@ const {
 
 
 router.post("/create-category", createCategory);
-router.get("/categories", allCategory);
+router.get("/all-categories", allCategory);
 router.patch("/update-category/:id", updateCategory);
 router.delete("/delete-catagory/:id", deleteCategory);
 
