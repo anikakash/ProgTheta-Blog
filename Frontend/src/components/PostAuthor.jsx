@@ -10,29 +10,29 @@ import ru from 'javascript-time-ago/locale/ru.json';
 TimeAgo.addDefaultLocale(en)
 TimeAgo.addLocale(ru)
 
-const PostAuthor = ({ authorID, createdAt }) => {
-  const [author, setAuthor] = useState();
+const PostAuthor = ({ authorUserID, author, authorImg, createdAt }) => {
+  // const [author, setAuthor] = useState();
 
-  useEffect(() => {
-    const getAuthor = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/profile/${authorID}`);
-        setAuthor(response?.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // useEffect(() => {
+  //   const getAuthor = async () => {
+  //     try {
+  //       const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/profile/${authorID}`);
+  //       setAuthor(response?.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    getAuthor();
-  }, []);
+  //   getAuthor();
+  // }, []);
 
   return (
-    <Link to={`/posts/user/${authorID}`} className="post__author">
+    <Link to={`/posts/user/${authorUserID}`} className="post__author">
       <div className="post__author-avatar">
-        <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${author?.avatar}`} alt={author?.name} />
+        <img src={`${import.meta.env.VITE_API_ASSETS_URL}/uploads/${authorImg}`} alt={author} />
       </div>
       <div className="post__author-details">
-        <h5>{author?.name}</h5>
+        <h5>{author}</h5>
         <small><ReactTimeAgo date={new Date(createdAt)} local='en-US'/></small>
       </div>
     </Link>

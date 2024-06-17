@@ -1,5 +1,6 @@
 const Post = require("../models/post.model");
 const UserModel = require("../models/user.model")
+const Category = require("../models/category.model");
 const fs = require('fs');
 const path = require('path');
 const {v4: uuid} = require('uuid');
@@ -27,6 +28,13 @@ const createPost = async (req, res, next) => {
       return next(new HttpError("Thumbnail too big. File should be less than 2MB.", 422));
     }
 
+     // Find the category by its title
+     const categoryExists = await Category.findOne({ title: category });
+     if (!categoryExists) {
+       return next(new HttpError("Invalid category title.", 422));
+     }
+
+
     let fileName = thumbnail.name;
     let splittedFilename = fileName.split('.');
     let newFilename = splittedFilename[0] + uuid() + "." + splittedFilename[splittedFilename.length - 1];
@@ -34,7 +42,7 @@ const createPost = async (req, res, next) => {
       if (err) {
         return next(new HttpError(err));
       } else {
-        const newPost = await Post.create({ title, category, description, thumbnail: newFilename, creator: req.user.id });
+        const newPost = await Post.create({ title, category:categoryExists._id , description, thumbnail: newFilename, creator: req.user.id });
         if (!newPost) {
           return next(new HttpError("Post couldn't be created.", 422));
         }
@@ -182,7 +190,12 @@ const getPosts = async (req, res) => {
     const totalPosts = await Post.countDocuments(); // Count total posts
     const totalPage = Math.ceil(totalPosts / pageSize);
 
-    const posts = await Post.find().skip(startIndex).limit(pageSize).sort({ createdAt: -1 });
+    const posts = await Post.find()
+    .skip(startIndex)
+    .limit(pageSize)
+    .sort({ createdAt: -1 })
+    .populate("creator")
+    .populate("category");
 
     // const posts = await Post.find().slice(startIndex, endIndex);
 
@@ -207,7 +220,8 @@ const getPosts = async (req, res) => {
 const getPostById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const post = await Post.findById(id);
+    const post = await Post.findById(id)
+    .populate("creator");
     if (!post) {
       // If post is null or undefined, return a 404 error
       return next(new HttpError("Post not found.", 404));
@@ -224,7 +238,10 @@ const getPostById = async (req, res, next) => {
 const getPostByAuthorId = async(req, res, next)=>{
   try {
     const { id } = req.params;
-    const userPosts = await Post.find({creator: id}).sort({updatedAt : -1});
+    const userPosts = await Post.find({creator: id})
+    .sort({updatedAt : -1})
+    .populate("creator")
+    .populate("category");
     if(userPosts.length === 0){
       return next(new HttpError(`Post not found for this author.`, 404));
     }
@@ -240,7 +257,10 @@ const getPostByAuthorId = async(req, res, next)=>{
 const getCatagoryBlog = async(req, res, next) =>{
   try {
     const { category } = req.params;
-    const catPosts = await Post.find({category}).sort({updatedAt : -1});
+    const catPosts = await Post.find({category})
+    .sort({updatedAt : -1})
+    .populate("creator")
+    .populate("category");
     if(catPosts.length === 0){
       return next(new HttpError(`Post not found on ${category}.`, 404));
     }

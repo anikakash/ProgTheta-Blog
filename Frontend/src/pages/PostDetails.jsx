@@ -43,9 +43,9 @@ export const PostDetails = () => {
       {error && <p className="error">{error}</p>}
       {post && <div className="container post-detail__container">
           <div className="post-detail__header">
-            <PostAuthor authorID={post.creator} createdAt={post.createdAt}/>
+            <PostAuthor authorUserID={post.creator._id} author={post.creator.name} authorImg={post.creator.avatar} createdAt={post.createdAt}/>
 
-            {currentUser?.tokenObject?.id == post?.creator && 
+            {currentUser?.tokenObject?.id == post?.creator._id && 
             <div className="post-detail_buttons">
               <Link to={`/post/${post._id}/edit`} className='btn sm primary'>Edit</Link>
               <DeletePost postId={id}/>

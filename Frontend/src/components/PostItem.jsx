@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PostAuthor from './PostAuthor';
 
 
-export const PostItem = ({postID, category, title, description, authorID, thumbnail, createdAt}) => {
+export const PostItem = ({postID, category, categoryId, title, description, authorID, authorName, authorAvatar, thumbnail, createdAt}) => {
     const shortDescription = description.length > 145 ? description.substr(0, 145) + '...' : description;
 
     const postTitle = title.length > 145 ? title.substr(0, 30) + '...' : title;
@@ -20,8 +20,8 @@ export const PostItem = ({postID, category, title, description, authorID, thumbn
             <p dangerouslySetInnerHTML={{__html: shortDescription}}/>
 
             <div className="post__footer">
-                <PostAuthor authorID={authorID} createdAt={createdAt}/>
-                <Link to={`/posts/categories/${category}`}className="btn category">{category}</Link>
+                <PostAuthor authorUserID={authorID} author={authorName} authorImg={authorAvatar} createdAt={createdAt}/>
+                <Link to={`/posts/categories/${categoryId}`}className="btn category">{category}</Link>
             </div>
         </div>
 
