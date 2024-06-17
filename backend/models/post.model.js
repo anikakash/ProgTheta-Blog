@@ -17,7 +17,7 @@ const postSchema = mongoose.Schema(
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref : "userModel"
+      ref : "Users"
     },
     thumbnail: {
       type: String,
