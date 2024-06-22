@@ -69,12 +69,13 @@ const Posts = () => {
             )}
             {totalPage > 1 && (
                 <div className='pagination__container'>
-                    {currentPage < totalPage && 
-                        <button onClick={nextPage} className='btn primary'>Next Page</button>
-                    }
                     {currentPage > 1 && 
                         <button onClick={prevPage} className='btn primary'>Previous Page</button>
                     }
+                    {currentPage < totalPage && 
+                        <button onClick={nextPage} className='btn primary'>Next Page</button>
+                    }
+                    
                 </div>
             )}
         </section>
